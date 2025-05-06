@@ -8,5 +8,6 @@ class LivreServiceSpec extends Specification implements ServiceUnitTest<LivreSer
      void "test something"() {
         expect:
         service.doSomething()
+
      }
 }
