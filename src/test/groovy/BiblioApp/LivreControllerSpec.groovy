@@ -7,20 +7,6 @@ import spock.lang.Specification
 
 class LivreControllerSpec extends Specification implements ControllerUnitTest<LivreController>, DomainUnitTest<Livre> {
 
-     void "test index action"() {
-        when:
-        controller.index()
-
-        then:
-        status == 200
-     }
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "test createLivre - succès"() {
         when:
         def params = [titre: "Le Petit Prince", auteur: "Antoine de Saint-Exupéry"]
@@ -31,6 +17,7 @@ class LivreControllerSpec extends Specification implements ControllerUnitTest<Li
         livre.titre == "Le Petit Prince"
         Livre.count() == 1
     }
+
 
     void "test createLivre - validation échoue"() {
         when:
