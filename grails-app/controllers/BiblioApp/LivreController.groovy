@@ -1,6 +1,7 @@
 package BiblioApp
 
 import grails.validation.ValidationException
+import groovy.xml.MarkupBuilder
 
 class LivreController {
 
@@ -101,11 +102,75 @@ class LivreController {
         def writer = new PrintWriter(response.outputStream)
         writer.println("ID,Title,Author,ISBN,PublishedDate,Description,Genre")
 
-        Book.list().each { book ->
-            writer.println("${book.id},\"${book.titre}\",\"${book.auteur}\",${book.isbn},${book.annee_publication},\"${book.description}\",\"${book.genre}\"")
+        Livre.list().each { livre ->
+            writer.println("${livre.id},\"${livre.titre}\",\"${livre.auteur}\",${livre.isbn},${livre.anneePublication},\"${livre.description}\",\"${livre.genre}\"")
         }
 
         writer.flush()
         writer.close()
     }
+
+    def exportXml() {
+        response.contentType = 'application/xml'
+        response.setHeader('Content-Disposition', 'attachment; filename="books.xml"')
+
+        def writer = new PrintWriter(response.outputStream)
+        writer.println '<?xml version="1.0" encoding="UTF-8"?>'
+        writer.println '<books>'
+
+        Livre.list().each { book ->
+            writer.println "  <book>"
+            writer.println "    <id>${book.id}</id>"
+            writer.println "    <title>${book.titre.encodeAsXML()}</title>"
+            writer.println "    <author>${book.auteur.encodeAsXML()}</author>"
+            writer.println "    <isbn>${book.isbn.encodeAsXML()}</isbn>"
+            writer.println "    <publishedDate>${book.anneePublication}</publishedDate>"
+            writer.println "    <description>${book.description}</descrption>"
+            writer.println "    <genre>${book.genre}</genre>"
+            writer.println "  </book>"
+        }
+
+        writer.println '</books>'
+        writer.flush()
+        writer.close()
+    }
+
+    def exportXml2() {
+        response.contentType = 'application/xml'
+        response.setHeader('Content-Disposition', 'attachment; filename="books.xml"')
+
+        def writer = new PrintWriter(response.outputStream)
+        def xml = new MarkupBuilder(writer)
+        xml.books {
+            Livre.list().each { book ->
+                book {
+                    id(book.id)
+                    title(book.titre)
+                    author(book.auteur)
+                    publishedDate(book.anneePublication)
+                }
+            }
+        }
+
+        writer.flush()
+        writer.close()
+    }
+
+    // Action pour exporter un seul livre en XML
+    def exporterXML(Long id) {
+        def livre = Livre.get(id)
+        if (!livre) {
+            flash.message = "Livre non trouvé avec l'ID: ${id}"
+            redirect(action: "index")
+            return
+        }
+
+        String xmlContent = exportService.exporterLivreXML(livre)
+
+        response.setContentType("application/xml")
+        response.setHeader("Content-disposition", "attachment; filename=livre_${id}.xml")
+        response.outputStream << xmlContent
+        response.outputStream.flush()
+    }
+
 }

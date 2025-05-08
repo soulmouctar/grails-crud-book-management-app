@@ -64,7 +64,7 @@
             <a class="btn btn-primary" href="${createLink(controller: 'livre', action: 'exportCsv')}">
                 Export as CSV
             </a>
-            <a class="btn btn-secondary" href="${createLink(uri: '/books/exportXml')}">
+            <a class="btn btn-secondary" href="${createLink(uri: '/livre/exportXml2')}">
                 Export as XML
             </a>
         </div>
@@ -97,6 +97,7 @@
                     <g:form action="delete" id="${livre.id}" method="DELETE" style="display:inline;">
                         <input type="submit" class="btn btn-sm btn-danger" value="Supprimer" onclick="return confirm('Êtes-vous sûr?')" />
                     </g:form>
+                    <g:link action="exporterXML" id="${livre.id}" class="btn btn-sm btn-success">Export to XML</g:link>
                 </td>
             </tr>
         </g:each>

@@ -72,6 +72,9 @@
         <fieldset class="buttons">
             <g:link class="edit btn btn-warning" action="edit" resource="${livre}">Modifier</g:link>
             <input class="delete btn btn-danger" type="submit" value="Supprimer" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Êtes-vous sûr?')}');" />
+            <a class="download btn-primary" href="${createLink(uri: "/livre/${livre.id}/exportXmlOneBook")}">
+                Export as XML
+            </a>
         </fieldset>
     </g:form>
 </div>
