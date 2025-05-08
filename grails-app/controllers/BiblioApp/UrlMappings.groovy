@@ -2,6 +2,8 @@ package BiblioApp
 
 class UrlMappings {
     static mappings = {
+        "/books/export"(controller: 'livre', action: 'exportCsv')
+        "/books/exportXml"(controller: 'livre', action: 'exportXml')
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here

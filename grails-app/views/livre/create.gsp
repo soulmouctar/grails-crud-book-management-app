@@ -20,7 +20,7 @@
     </ul>
 </div>
 <div id="create-livre" class="content scaffold-create" role="main">
-    <h1>Créer un Livre</h1>
+    <h1>Create Book</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>

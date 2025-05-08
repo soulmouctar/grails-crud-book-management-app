@@ -27,23 +27,23 @@
 <div class="nav" role="navigation">
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}">Accueil</a></li>
-        <li><g:link class="list" action="index">Liste des Livres</g:link></li>
-        <li><g:link class="create" action="create">Créer un Livre</g:link></li>
+        <li><g:link class="list" action="index">List of the Book</g:link></li>
+        <li><g:link class="create" action="create">create book</g:link></li>
     </ul>
 </div>
 <div id="show-livre" class="content scaffold-show" role="main">
-    <h1>Détails du Livre</h1>
+    <h1>Details of the book</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
     <div class="property-list livre">
         <div class="row">
-            <div class="col-md-2 property-label">Titre:</div>
+            <div class="col-md-2 property-label">Title:</div>
             <div class="col-md-10 property-value">${livre.titre}</div>
         </div>
 
         <div class="row">
-            <div class="col-md-2 property-label">Auteur:</div>
+            <div class="col-md-2 property-label">Author:</div>
             <div class="col-md-10 property-value">${livre.auteur}</div>
         </div>
 
@@ -53,12 +53,12 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2 property-label">Année de publication:</div>
+            <div class="col-md-2 property-label">Year Published :</div>
             <div class="col-md-10 property-value">${livre.anneePublication}</div>
         </div>
 
         <div class="row">
-            <div class="col-md-2 property-label">Genre:</div>
+            <div class="col-md-2 property-label">Type:</div>
             <div class="col-md-10 property-value">${livre.genre}</div>
         </div>
 

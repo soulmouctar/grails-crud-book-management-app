@@ -92,4 +92,20 @@ class LivreController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+
+    def exportCsv() {
+        response.contentType = 'text/csv'
+        response.setHeader('Content-Disposition', 'attachment; filename="books.csv"')
+
+        def writer = new PrintWriter(response.outputStream)
+        writer.println("ID,Title,Author,ISBN,PublishedDate,Description,Genre")
+
+        Book.list().each { book ->
+            writer.println("${book.id},\"${book.titre}\",\"${book.auteur}\",${book.isbn},${book.annee_publication},\"${book.description}\",\"${book.genre}\"")
+        }
+
+        writer.flush()
+        writer.close()
+    }
 }

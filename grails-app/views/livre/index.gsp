@@ -41,22 +41,36 @@
     </ul>
 </div>
 
-<div id="list-livre" class="content scaffold-list" role="main">
-    <h1>Liste des Livres</h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
+<div id="list-livre" class="content scaffold-list" role="main" class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Liste des Livres</h1>
+        </div>
+        <g:if test="${flash.message}">
+            <div class="message" role="status">${flash.message}</div>
+        </g:if>
 
-    <div class="search-box mb-3">
-        <g:form action="search" method="GET" class="form-inline">
-            <div class="input-group">
-                <input type="text" name="q" value="${params.q}" class="form-control" placeholder="Rechercher par titre, auteur ou genre..." />
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
+        <div class="col-md-4 search-box mb-3">
+            <g:form action="search" method="GET" class="form-inline">
+                <div class="input-group">
+                    <input type="text" name="q" value="${params.q}" class="form-control" placeholder="Search By title, author..." />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
-            </div>
-        </g:form>
+            </g:form>
+        </div>
+        <div class="col-md-4 action-buttons">
+            <a class="btn btn-primary" href="${createLink(controller: 'livre', action: 'exportCsv')}">
+                Export as CSV
+            </a>
+            <a class="btn btn-secondary" href="${createLink(uri: '/books/exportXml')}">
+                Export as XML
+            </a>
+        </div>
     </div>
+
+</div>
 
     <table class="livre-table">
         <thead>
