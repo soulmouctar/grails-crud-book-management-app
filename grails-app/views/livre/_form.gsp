@@ -14,12 +14,7 @@
     <label for="isbn">ISBN<span class="required-indicator">*</span></label>
     <input type="text" class="form-control" name="isbn" value="${livre?.isbn}" required/>
 </div>
-<%-- Note: ISBN validation can be added here if needed
-    <div class="form-group">
-        <label for="anneePublication">Year<span class="required-indicator">*</span></label>
-        <input type="number" class="form-control" name="anneePublication" value="${livre?.anneePublication}" min="1000" max="2030" required/>
-    </div>
---%>
+
 <div class="form-group">
     <label for="anneePublication">Year <span class="required-indicator">*</span></label>
     <input type="number" class="form-control" name="anneePublication"
@@ -28,8 +23,14 @@
 </div>
 <div class="form-group">
     <label for="genre">Type</label>
-    <input type="text" class="form-control" name="genre" value="${livre?.genre}"/>
+    <select class="form-control" name="genre">
+        <option value="spring" ${livre?.genre == 'spring' ? 'selected' : ''}>Spring boot</option>
+        <option value="programming" ${livre?.genre == 'programming' ? 'selected' : ''}>Programming</option>
+        <option value="dramatique" ${livre?.genre == 'dramatique' ? 'selected' : ''}>Dramatique</option>
+        <option value="humouristique" ${livre?.genre == 'humouristique' ? 'selected' : ''}>Humouristique</option>
+    </select>
 </div>
+
 
 
 <div class="form-group">
