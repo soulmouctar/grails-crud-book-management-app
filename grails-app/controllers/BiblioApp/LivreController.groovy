@@ -8,7 +8,7 @@ class LivreController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond livreService.list(params), model:[livreCount: livreService.count()]
+        respond livreService.list(params), model: [livreCount: livreService.count()]
     }
 
     def show(Long id) {
@@ -19,25 +19,22 @@ class LivreController {
         respond new Livre(params)
     }
 
-    def save(Livre livre) {
-        if (livre == null) {
-            notFound()
-            return
-        }
-
+    def save() {
         try {
-            livreService.save(livre)
-        } catch (ValidationException e) {
-            respond livre.errors, view:'create'
-            return
-        }
+            def livre = livreService.createLivre(params)
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = "Livre ${livre.titre} créé avec succès."
-                redirect livre
+            request.withFormat {
+                form multipartForm {
+                    flash.message = "Livre ${livre.titre} créé avec succès."
+                    redirect livre
+                }
+                '*' { respond livre, [status: CREATED] }
             }
-            '*' { respond livre, [status: CREATED] }
+        } catch (ValidationException e) {
+            respond e.errors, view: 'create'
+        } catch (Exception e) {
+            flash.message = "Erreur lors de la création du livre : ${e.message}"
+            redirect action: "create"
         }
     }
 
@@ -45,42 +42,44 @@ class LivreController {
         respond livreService.get(id)
     }
 
-    def update(Livre livre) {
-        if (livre == null) {
+    def update(Long id) {
+        try {
+            def livre = livreService.updateLivre(id, params)
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = "Livre ${livre.titre} mis à jour avec succès."
+                    redirect livre
+                }
+                '*' { respond livre, [status: OK] }
+            }
+        } catch (ValidationException e) {
+            respond e.errors, view: 'edit'
+        } catch (Exception e) {
+            flash.message = "Erreur lors de la mise à jour : ${e.message}"
+            redirect action: "edit", id: id
+        }
+    }
+
+    def delete(Long id) {
+        if (!id) {
             notFound()
             return
         }
 
         try {
-            livreService.save(livre)
-        } catch (ValidationException e) {
-            respond livre.errors, view:'edit'
-            return
-        }
+            livreService.deleteLivre(id)
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = "Livre ${livre.titre} mis à jour avec succès."
-                redirect livre
+            request.withFormat {
+                form multipartForm {
+                    flash.message = "Livre supprimé avec succès."
+                    redirect action: "index", method: "GET"
+                }
+                '*' { render status: NO_CONTENT }
             }
-            '*'{ respond livre, [status: OK] }
-        }
-    }
-
-    def delete(Long id) {
-        if (id == null) {
-            notFound()
-            return
-        }
-
-        livreService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = "Livre supprimé avec succès."
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
+        } catch (Exception e) {
+            flash.message = "Erreur lors de la suppression : ${e.message}"
+            redirect action: "index"
         }
     }
 
@@ -90,7 +89,7 @@ class LivreController {
                 flash.message = "Livre non trouvé."
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }
