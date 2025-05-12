@@ -1,4 +1,4 @@
-package BiblioApp
+package livreapp
 
 class BootStrap {
 

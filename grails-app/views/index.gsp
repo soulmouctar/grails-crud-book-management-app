@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>BiblioApp - Accueil</title>
+    <title>BiblioApp - Home</title>
     <style>
     .welcome-message {
         text-align: center;
@@ -30,12 +30,12 @@
 </head>
 <body>
 <div class="welcome-message">
-    <h1>Bienvenue dans BiblioApp</h1>
-    <p>Une application simple de gestion de bibliothèque avec Grails et Groovy</p>
+    <h1>Welcome BiblioApp</h1>
+    <p>A simple library management application with Grails and Groovy</p>
 </div>
 
 <div class="action-buttons">
-    <a href="${createLink(controller:'livre', action:'index')}" class="action-button">Gérer les Livres</a>
+    <a href="${createLink(controller:'livre', action:'index')}" class="action-button">Manage Book</a>
 </div>
 </body>
 </html>s

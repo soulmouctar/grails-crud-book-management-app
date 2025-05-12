@@ -1,6 +1,7 @@
-package BiblioApp
+package livreapp
 
 class UrlMappings {
+
     static mappings = {
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
@@ -11,6 +12,5 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')
-
     }
 }
