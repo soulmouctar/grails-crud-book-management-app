@@ -19,19 +19,36 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <g:link class="nav-link" controller="livre" action="index">Livres</g:link>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <!-- Menu à gauche -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <g:link class="nav-link" controller="livre" action="index">Livres</g:link>
+                </li>
+            </ul>
+
+            <!-- Boutons de langue à droite -->
+            <div class="d-flex">
+                <a href="${request.forwardURI}?lang=fr" class="btn btn-outline-primary me-2">
+                    🇫🇷 Français
+                </a>
+                <a href="${request.forwardURI}?lang=en" class="btn btn-outline-secondary">
+                    🇬🇧 English
+                </a>
+            </div>
+        </div>
+
+
     </div>
+
 </nav>
 
 <div class="container mt-4">
     <g:layoutBody/>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -33,7 +33,7 @@
 
         <div class="form-group col-md-6">
             <label for="description">Description</label>
-            <textarea class="form-control" name="description" rows="2">${livre?.description}</textarea>
+            <textarea class="form-control" name="description" rows="1">${livre?.description}</textarea>
         </div>
 
     </div>

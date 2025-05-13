@@ -1,47 +1,96 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'livre.label', default: 'Livre')}" />
-        <title><g:message code="default.show.label" args="[entityName]" /></title>
-    </head>
-    <body>
-    <div id="content" role="main">
-        <div class="container">
-            <section class="row">
-                <a href="#show-livre" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-                <div class="nav" role="navigation">
-                    <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                    </ul>
-                </div>
-            </section>
-            <section class="row">
-                <div id="show-livre" class="col-12 content scaffold-show" role="main">
-                    <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-                    <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
-                    </g:if>
-                    <f:display bean="livre" />
-                    <g:form resource="${this.livre}" method="DELETE">
-                        <fieldset class="buttons">
-                            <g:link class="edit" action="edit" resource="${this.livre}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                            <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                            <g:link class="btn btn-outline-secondary"
-                                    controller="livre"
-                                    action="exportXmlOneBook"
-                                    id="${livre?.id}">
-                                Export to XML
-                            </g:link>
-                        </fieldset>
-                    </g:form>
+<head>
+    <meta name="layout" content="main"/>
+    <g:set var="entityName" value="${message(code: 'livre.label', default: 'Livre')}"/>
+    <title><g:message code="default.show.label" args="[entityName]"/></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
+</head>
+<body>
+<div id="content" role="main">
+    <div class="container py-4 card card-container mb-5">
+        <!-- Navigation -->
+        <nav class="mb-4">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="${createLink(uri: '/')}">
+                        <i class="fas fa-home"></i> <g:message code="default.home.label"/>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <g:link class="nav-link" action="index">
+                        <i class="fas fa-list"></i> <g:message code="default.list.label" args="[entityName]"/>
+                    </g:link>
+                </li>
+                <li class="nav-item">
+                    <g:link class="nav-link" action="create">
+                        <i class="fas fa-plus-circle"></i> <g:message code="default.new.label" args="[entityName]"/>
+                    </g:link>
+                </li>
+            </ul>
+        </nav>
 
-                </div>
-            </section>
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h2><i class="fas fa-book-open text-primary"></i> <g:message code="default.show.label" args="[entityName]"/></h2>
         </div>
+
+    <!-- Flash Message -->
+        <g:if test="${flash.message}">
+            <div class="alert alert-success" role="alert">
+                ${flash.message}
+            </div>
+        </g:if>
+
+    <!-- Book Details Card -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary mb-3"><i class="fas fa-info-circle"></i> Détails du livre</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Titre :</strong> ${livre?.titre}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Auteur :</strong> ${livre?.auteur}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>ISBN :</strong> ${livre?.isbn}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Année de publication :</strong> ${livre?.anneePublication}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Genre :</strong> ${livre?.genre}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Description :</strong><br/>
+                        <span class="text-muted">${livre?.description ?: 'Non renseignée'}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 d-flex justify-content-between">
+            <g:link class="btn btn-outline-primary" action="edit" resource="${this.livre}">
+                <i class="fas fa-edit"></i> <g:message code="default.button.edit.label" default="Edit"/>
+            </g:link>
+
+            <g:form resource="${this.livre}" method="DELETE" onsubmit="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
+                <div class="d-flex gap-2">
+                    <input class="btn btn-danger" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}"/>
+                    <g:link class="btn btn-outline-secondary"
+                            controller="livre"
+                            action="exportXmlOneBook"
+                            id="${livre?.id}">
+                        <i class="fas fa-file-code"></i> Exporter XML
+                    </g:link>
+                </div>
+            </g:form>
+        </div>
+
     </div>
-    </body>
+</div>
+</body>
 </html>
