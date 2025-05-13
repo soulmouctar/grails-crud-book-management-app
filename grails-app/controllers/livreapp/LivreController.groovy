@@ -1,12 +1,15 @@
 package livreapp
 
 import grails.validation.ValidationException
+import org.springframework.web.multipart.MultipartFile
+
 import static org.springframework.http.HttpStatus.*
 
 class LivreController {
 
     LivreService livreService
     XmlExportService xmlExportService
+    XmlImportService xmlImportService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -105,5 +108,32 @@ class LivreController {
         response.setHeader("Content-disposition", "attachment; filename=livre_${id}.xml")
         render  text: xmlContent, contentType: 'application/xml', encoding: 'UTF-8'
 
+    }
+
+    def uploadXml() {
+        MultipartFile f = request.getFile('xmlFile')
+
+        if (f.empty) {
+            flash.message = "Veuillez sélectionner un fichier XML à importer"
+            redirect(action: "index")
+            return
+        }
+
+        if (!f.contentType.contains("xml")) {
+            flash.message = "Le fichier doit être au format XML"
+            redirect(action: "index")
+            return
+        }
+
+        String xmlContent = f.inputStream.text
+        def results = xmlImportService.importerLivresDepuisXml(xmlContent)
+
+        flash.success = "${results.success} livres ont été importés avec succès"
+
+        if (results.errors) {
+            flash.error = "Des erreurs sont survenues lors de l'importation: ${results.errors.join('; ')}"
+        }
+
+        redirect(action: "index")
     }
 }

@@ -8,6 +8,8 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        // Import de livres
+        "/import"(controller: "import", action: "index")
 
         "/"(view:"/index")
         "500"(view:'/error')

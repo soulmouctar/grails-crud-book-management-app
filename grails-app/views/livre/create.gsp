@@ -41,11 +41,69 @@
 
                         <fieldset class="buttons">
                             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                            <g:link class="cancel" action="index">
+                                <g:message code="default.button.cancel.label" default="Cancel"/>
+                            </g:link>
+
                         </fieldset>
+
                     </g:form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>Import many books from XML File</h1>
+                            </div>
+                            <div class="col-md-6">
+                                <h2>Import one book from XML File</h2>
+                            </div>
+                        </div>
+
+                        <g:if test="${flash.message}">
+                            <div class="alert alert-warning">${flash.message}</div>
+                        </g:if>
+                        <g:if test="${flash.error}">
+                            <div class="alert alert-danger">${flash.error}</div>
+                        </g:if>
+                        <g:if test="${flash.success}">
+                            <div class="alert alert-success">${flash.success}</div>
+                        </g:if>
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <g:form action="uploadXml" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+
+                                                <input type="file" name="xmlFile" id="xmlFile" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-secondary">Importer</button>
+                                            </div>
+                                        </div>
+                                        <!-- import one Book -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="file" name="xmlFile" id="xmlFile" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success">Importer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </g:form>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </section>
         </div>
     </div>
-    </body>
+
+</body>
 </html>
