@@ -113,8 +113,13 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            url: jdbc:postgresql://localhost:5432/biblioapp
+            driverClassName: org.postgresql.Driver
+            username: postgres
+            password: 1234
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+
     test:
         dataSource:
             dbCreate: update
