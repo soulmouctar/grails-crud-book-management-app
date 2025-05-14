@@ -26,12 +26,12 @@
         <table class="table table-striped table-bordered align-middle">
             <thead class="table-success">
             <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Genre</th>
-                <th>Année</th>
-                <th>Actions</th>
+                <th><g:message code="livre.id.label" default="ID" /></th>
+                <th><g:message code="livre.titre.label" default="Titre" /></th>
+                <th><g:message code="livre.auteur.label" default="Auteur" /></th>
+                <th><g:message code="livre.genre.label" default="Genre" /></th>
+                <th><g:message code="livre.annee.label" default="Année" /></th>
+                <th><g:message code="default.actions.label" default="Actions" /></th>
             </tr>
             </thead>
             <tbody>
@@ -44,15 +44,16 @@
                     <td>${livre.anneePublication}</td>
                     <td>
                         <g:link class="btn btn-sm btn-info me-1" action="show" id="${livre.id}">
-                            <i class="fa fa-eye"></i>
+                            <i class="fa fa-eye"></i> <g:message code="default.button.show.label" default="Voir" />
                         </g:link>
                         <g:link class="btn btn-sm btn-primary me-1" action="edit" id="${livre.id}">
-                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-edit"></i> <g:message code="default.button.edit.label" default="Modifier" />
                         </g:link>
                         <g:form action="delete" method="DELETE" style="display:inline;">
-                            <g:hiddenField name="id" value="${livre.id}"/>
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce livre ?')">
-                                <i class="fa fa-trash"></i>
+                            <g:hiddenField name="id" value="${livre.id}" />
+                            <button class="btn btn-sm btn-danger"
+                                    onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Supprimer ce livre ?')}')">
+                                <i class="fa fa-trash"></i> <g:message code="default.button.delete.label" default="Supprimer" />
                             </button>
                         </g:form>
                     </td>
@@ -60,8 +61,6 @@
             </g:each>
             </tbody>
         </table>
-
-
     </div>
 
 <!-- Pagination -->

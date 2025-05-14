@@ -1,6 +1,10 @@
 ---
 grails:
     profile: web
+    grails:
+        enable:
+            native2ascii: false
+
     codegen:
         defaultPackage: livreapp
     gorm:
@@ -14,6 +18,11 @@ info:
         version: '@info.app.version@'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
+    spring:
+        mvc:
+            locale-resolver: session
+            locale: en
+
     jmx:
         unique-names: true
     main:
@@ -46,6 +55,19 @@ environments:
 
 ---
 grails:
+    grails:
+        views:
+            locales:
+                - en
+                - fr
+    encoding:
+        charset: UTF-8
+        codecs:
+            html: UTF-8
+            form: UTF-8
+            url: UTF-8
+            xml: UTF-8
+            json: UTF-8
     mime:
         disable:
             accept:
@@ -146,3 +168,6 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+server:
+    tomcat:
+        uri-encoding: UTF-8
