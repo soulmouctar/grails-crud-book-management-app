@@ -1,12 +1,16 @@
 package livreapp
 
 import grails.validation.ValidationException
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
+
 import static org.springframework.http.HttpStatus.*
 
 class LivreController {
 
     LivreService livreService
     XmlExportService xmlExportService
+    XmlImportService xmlImportService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -106,4 +110,17 @@ class LivreController {
         render  text: xmlContent, contentType: 'application/xml', encoding: 'UTF-8'
 
     }
+
+
+    def saveBook() {
+        def livre = new Livre(params)
+
+        if (livre.save(flush: true)) {
+            flash.message = "Book added successfully"
+            redirect(action: "show", id: livre.id)
+        } else {
+            render(view: "create", model: [livre: livre])
+        }
+    }
+
 }

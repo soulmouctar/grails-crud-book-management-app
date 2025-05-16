@@ -34,6 +34,10 @@ configurations {
     }
 }
 
+compileJava.options.encoding = 'UTF-8'
+compileGroovy.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+compileTestGroovy.options.encoding = 'UTF-8'
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly "io.micronaut:micronaut-inject-groovy"
