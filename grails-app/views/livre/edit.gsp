@@ -105,7 +105,7 @@
                     <label class="form-label">
                         <g:message code="livre.genre.label" default="Genre" />
                     </label>
-                    <select name="genre" class="form-select" required>
+                    <select name="genre" class="form-select form-control" required>
                         <option value="spring" ${livre?.genre == 'spring' ? 'selected' : ''}><g:message code="livre.genre.spring.label" default="Spring Boot"/></option>
                         <option value="programming" ${livre?.genre == 'programming' ? 'selected' : ''}><g:message code="livre.genre.programming.label" default="Programmation"/></option>
                         <option value="dramatique" ${livre?.genre == 'dramatique' ? 'selected' : ''}><g:message code="livre.genre.dramatique.label" default="Dramatique"/></option>
