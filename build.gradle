@@ -127,6 +127,10 @@ tasks.withType(Test) {
     }
 }
 
+springBoot {
+    mainClass = 'livreapp.Application'
+}
+
 
 assets {
     minifyJs = true
